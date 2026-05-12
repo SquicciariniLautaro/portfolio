@@ -1,0 +1,467 @@
+
+:root {
+    --fondo-principal: #0F172A; /* Un azul medianoche muy oscuro */
+    --fondo-secundario: #1E293B; /* Un tono un poco más claro para tarjetas */
+    --texto-principal: #F8FAFC; /* Blanco grisáceo para que no canse la vista */
+    --texto-secundario: #94A3B8; /* Gris para subtítulos o texto de relleno */
+    --color-acento: #0EA5E9; /* Un cian brillante estilo Tech para botones y enlaces */
+}
+
+/* COMPORTAMIENTO GLOBAL DEL DOCUMENTO */
+
+html {
+    /* 
+    Esta propiedad hace que cualquier enlace de anclaje (los que empiezan con #) 
+    se deslice suavemente hacia la sección, en lugar de saltar de golpe. 
+    Es nativo de CSS y muy eficiente en rendimiento.
+    */
+    scroll-behavior: smooth; 
+}
+
+/* Reseteo básico de márgenes para que se vea igual en todos los navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Aplicamos el tema oscuro al cuerpo del documento */
+body {
+    background-color: var(--fondo-principal);
+    color: var(--texto-principal);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+/* SECCIÓN DE INICIO HERO */
+
+#inicio {
+    /* min-height: 100vh asegura que la sección ocupe al menos el 100% 
+       del alto de la pantalla del usuario (Viewport Height), sin importar el dispositivo. */
+    min-height: 100vh; 
+    
+    /* Uso Flexbox, que es el mejor sistema para alinear cosas fácilmente */
+    display: flex;
+    flex-direction: column; /* Apila los elementos en forma de columna (uno debajo de otro) */
+    justify-content: center; /* Al tener min-height: 100vh, esto centra el contenido verticalmente */
+    align-items: flex-start; /* Alinea los textos y el botón hacia la izquierda */
+    
+    /* Agregamos un padding (espaciado interno) a los lados 
+       para que el texto no quede pegado a los bordes de la pantalla. */
+    padding: 0 10%; 
+}
+
+#inicio h1 {
+    /* Un tamaño de fuente muy grande (4rem) para causar impacto inicial */
+    font-size: 4rem; 
+    margin-bottom: 10px; /* Separación mínima con el párrafo de abajo */
+}
+
+#inicio p {
+    font-size: 1.5rem; /* Un poco más grande que el texto normal */
+    color: var(--texto-secundario); /* Usamos el gris de nuestras variables para no competir con el h1 */
+    margin-bottom: 30px; /* Separación más grande antes del botón para dar "aire" visual */
+}
+
+
+
+/* ESTILOS DEL BOTÓN TECH  */
+
+#inicio .btn-hero {
+    display: inline-block; /* Fundamental para que el padding funcione correctamente en un enlace (<a>) */
+    text-decoration: none; /* Quitamos la línea azul típica de los enlaces */
+    background-color: transparent; 
+    color: var(--color-acento); 
+    border: 2px solid var(--color-acento); 
+    padding: 12px 24px; 
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+}
+
+#inicio .btn-hero:hover {
+    background-color: var(--color-acento); 
+    color: var(--fondo-principal); 
+    box-shadow: 0 0 15px var(--color-acento); 
+}
+
+/* ENCABEZADO Y NAVEGACIÓN HEADER */
+
+header {
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    padding: 20px 10%; /* Espaciado arriba/abajo y a los lados */
+    position: absolute; /* Lo coloca por encima de la sección de inicio */
+    top: 0;
+    left: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; /* Separará el logo de los futuros enlaces */
+    align-items: center; /* Centra verticalmente */
+}
+
+/* ESTILOS DEL LOGO ANIMADO (MÁQUINA DE ESCRIBIR) */
+
+.logo-maquina {
+    color: var(--color-acento);
+    font-size: 2.2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    
+    /* Configuración clave para la máquina de escribir */
+    white-space: nowrap; /* Evita que el texto baje a otra línea */
+    overflow: hidden; /* Oculta el texto mientras el contenedor es pequeño */
+    border-right: 3px solid var(--color-acento); /* Este es nuestro cursor cian */
+    
+    /* La unidad 'ch' equivale al ancho de un carácter. 
+       Como "LS" tiene exactamente 2 letras, fijamos el ancho en 2ch */
+    width: 2ch; 
+    
+    /* Aplicamos las animaciones definidas más abajo */
+    /* 'steps(2)' es el secreto: hace que la animación vaya letra por letra en lugar de deslizarse suavemente */
+    animation: 
+        escribir 1.5s steps(2) forwards,
+        parpadear 0.8s infinite step-end alternate;
+}
+
+/* Animación 1: El efecto de teclear (el contenedor crece de ancho 0 a 2ch) */
+@keyframes escribir {
+    from {
+        width: 0;
+    }
+}
+
+/* Animación 2: El cursor parpadeante */
+@keyframes parpadear {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* SECCIÓN HABILIDADES Y CERTIFICADOS */
+
+#habilidades {
+    padding: 100px 10%; /* Mucho espacio arriba y abajo para separar secciones */
+    background-color: var(--fondo-principal);
+}
+
+#habilidades h2 {
+    font-size: 2.5rem;
+    text-align: center; /* Centramos el título principal */
+    margin-bottom: 50px;
+    color: var(--color-acento);
+}
+
+.certificados-contenedor h3 {
+    font-size: 1.8rem;
+    margin: 40px 0 20px 0;
+    color: var(--texto-principal);
+}
+
+/* --- CSS GRID --- */
+.galeria-grid {
+    display: grid;
+    /* grid-template-columns crea columnas que se adaptan solas.
+    minmax(300px, 1fr) significa: "La columna no será menor a 300px, 
+       pero si hay espacio, ocupa 1 fracción (1fr) del espacio disponible". */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; /* Espacio entre las imágenes (huecos de la cuadrícula) */
+}
+
+.carta-certificado {
+    background-color: var(--fondo-secundario); /* Fondo sutil para la tarjeta */
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #334155; /* Un borde gris muy oscuro */
+    transition: transform 0.3s ease; /* Preparamos una animación */
+}
+
+.carta-certificado:hover {
+    /* Al pasar el mouse, la tarjeta se levanta un poquito hacia arriba */
+    transform: translateY(-10px); 
+}
+
+.carta-certificado img {
+    width: 100%; /* La imagen ocupa todo el ancho de su tarjeta */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 4px;
+    display: block;
+}
+
+/* ESTILOS DE LAS ETIQUETAS DE HABILIDADES */
+
+.skills-contenedor {
+    display: flex;
+    justify-content: center; /* Centramos las etiquetas en la pantalla */
+    flex-wrap: wrap; /* Si no caben en una línea, bajan a la siguiente automáticamente */
+    gap: 15px; /* Espacio entre cada etiqueta */
+    margin-bottom: 50px; /* Separación con la sección de certificados que está abajo */
+}
+
+.skill-tag {
+    background-color: var(--fondo-secundario); /* Usamos el color de fondo de las tarjetas */
+    color: var(--color-acento); /* Texto en color cian */
+    border: 1px solid var(--color-acento); /* Bordes cian para que resalten */
+    padding: 8px 16px; /* Espaciado interno para darles forma de píldora */
+    border-radius: 20px; /* Bordes muy redondeados (estilo píldora) */
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease; /* Animación suave */
+    cursor: default; /* Cursor normal, ya que no son botones clickeables */
+}
+
+/* Efecto al pasar el mouse por encima (opcional, pero queda muy bien) */
+.skill-tag:hover {
+    background-color: var(--color-acento);
+    color: var(--fondo-principal);
+    box-shadow: 0 0 10px var(--color-acento);
+}
+
+/*  SECCIÓN DE PROYECTOS */
+
+#proyectos {
+    padding: 100px 10%;
+    background-color: var(--fondo-principal);
+}
+
+#proyectos h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+    color: var(--color-acento);
+}
+
+.proyectos-grid {
+    display: grid;
+    /* Misma magia de Grid que en los certificados para que sea Responsive (se adapte a celulares) */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+/* --- ESTILOS DE LA TARJETA (CARD) --- */
+.proyecto-card {
+    background-color: var(--fondo-secundario);
+    border-radius: 12px;
+    overflow: hidden; /* Evita que la imagen se salga de los bordes redondeados */
+    border: 1px solid #334155;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.proyecto-card:hover {
+    transform: translateY(-10px); /* Se levanta un poco */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad */
+}
+
+.proyecto-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Asegura que la imagen llene el espacio sin deformarse */
+    border-bottom: 2px solid var(--color-acento); /* Una pequeña línea decorativa */
+}
+
+.proyecto-info {
+    padding: 20px;
+}
+
+.proyecto-info h3 {
+    font-size: 1.5rem;
+    color: var(--texto-principal);
+    margin-bottom: 10px;
+}
+
+.proyecto-info p {
+    color: var(--texto-secundario);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    min-height: 60px; /* Mantiene un alto uniforme aunque el texto sea corto */
+}
+
+/* --- ETIQUETAS DE TECNOLOGÍA EN PROYECTOS --- */
+.proyecto-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.proyecto-tech span {
+    font-size: 0.8rem;
+    background-color: var(--fondo-principal);
+    color: var(--color-acento);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #334155;
+}
+
+/* --- BOTONES DE LA TARJETA --- */
+.proyecto-links {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-proyecto {
+    text-decoration: none; /* Quita el subrayado de los links <a> */
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: var(--texto-principal);
+    background-color: transparent;
+    border: 1px solid var(--texto-secundario);
+    transition: all 0.3s ease;
+    text-align: center;
+    flex: 1; /* Hace que ambos botones ocupen el mismo ancho */
+}
+
+.btn-proyecto:hover {
+    border-color: var(--texto-principal);
+}
+
+/* Botón principal (Ver Demo) */
+.btn-proyecto.activo {
+    background-color: var(--color-acento);
+    color: var(--fondo-principal);
+    border-color: var(--color-acento);
+}
+
+.btn-proyecto.activo:hover {
+    background-color: transparent;
+    color: var(--color-acento);
+}
+
+/* SECCIÓN DE CONTACTO Y FOOTER */
+
+#contacto {
+    padding: 100px 10%;
+    text-align: center;
+    /* Un degradado que va del color principal al secundario para dar profundidad */
+    background: linear-gradient(to bottom, var(--fondo-principal), var(--fondo-secundario));
+}
+
+#contacto h2 {
+    font-size: 2.5rem;
+    color: var(--color-acento);
+    margin-bottom: 20px;
+}
+
+#contacto p {
+    font-size: 1.2rem;
+    color: var(--texto-secundario);
+    margin-bottom: 40px;
+    max-width: 600px;
+    /* Centramos el párrafo */
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.contacto-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Para que en celulares los botones bajen si no caben */
+}
+
+.btn-contacto {
+    text-decoration: none;
+    padding: 12px 24px;
+    background-color: var(--fondo-principal);
+    color: var(--texto-principal);
+    border: 1px solid var(--texto-secundario);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-contacto:hover {
+    border-color: var(--color-acento);
+    color: var(--color-acento);
+    transform: translateY(-5px); /* El botón "salta" un poquito hacia arriba */
+    box-shadow: 0 5px 15px rgba(14, 165, 233, 0.2); /* Sombra difuminada cian */
+}
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #0B1120; /* Un azul casi negro para el cierre definitivo */
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+}
+
+/* ESTILOS DE LA LISTA DE NAVEGACIÓN */
+
+#menu-navegacion {
+    display: flex; /* Alinea los elementos de la lista en una fila horizontal */
+    gap: 30px; /* Separación entre cada enlace */
+    list-style: none; /* Quita los puntos predeterminados de la lista <ul> */
+}
+
+#menu-navegacion a {
+    text-decoration: none; /* Quita el subrayado azul por defecto de los enlaces */
+    color: var(--texto-principal); /* Usa tu variable de color blanco grisáceo */
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: color 0.3s ease; /* Efecto suave para el hover */
+}
+
+#menu-navegacion a:hover {
+    color: var(--color-acento); /* El texto se vuelve cian al pasar el mouse */
+}
+
+/* DISEÑO RESPONSIVE (MENÚ MÓVIL) */
+
+/* Ocultamos el botón hamburguesa en pantallas grandes de PC */
+.menu-toggle {
+    display: none; 
+    font-size: 2rem;
+    background: none;
+    color: var(--texto-principal);
+    border: none;
+    cursor: pointer;
+}
+
+/* Reglas EXCLUSIVAS para pantallas menores a 768px (Tablets y Celulares) */
+@media (max-width: 768px) {
+    
+    /* Mostramos el botón hamburguesa */
+    .menu-toggle {
+        display: block; 
+    }
+
+    /* Escondemos el menú normal y lo preparamos para la animación */
+    #menu-navegacion {
+        position: absolute;
+        top: 100%; /* Se coloca justo debajo del header */
+        left: 0;
+        width: 100%;
+        background-color: var(--fondo-secundario);
+        flex-direction: column; 
+        align-items: center;
+        padding: 20px 0;
+        gap: 20px;
+        
+        /* 1. Siempre es flex para poder estructurarlo */
+        display: flex; 
+        
+        /* 2. Magia de la animación (Oculto por defecto) */
+        opacity: 0; /* Totalmente transparente */
+        visibility: hidden; /* Oculto a los clics del usuario */
+        transform: translateY(-20px); /* Desplazado 20px hacia arriba */
+        
+        /* 3. La transición suave que dura 0.4 segundos */
+        transition: all 0.4s ease; 
+        
+        /* 4. Aseguramos que el menú se superponga sobre tus proyectos y no quede por detrás */
+        z-index: 100; 
+    }
+
+    /* Esta clase "activo" ahora dispara la animación */
+    #menu-navegacion.activo {
+        opacity: 1; /* Totalmente visible */
+        visibility: visible; /* Vuelve a ser clickeable */
+        transform: translateY(0); /* Regresa a su posición original */
+    }
+}
