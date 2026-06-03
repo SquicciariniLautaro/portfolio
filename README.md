@@ -1,4 +1,4 @@
-# &lt;Lautaro /&gt; | Frontend Developer Portfolio
+# &lt;Lautaro /&gt; | FullStack Developer Portfolio
 
 ¡Hola! Bienvenido al repositorio de mi Portfolio Web Personal. 
 Este proyecto fue desarrollado desde cero para mostrar mis habilidades técnicas, lógica de programación y proyectos más recientes en el área del Desarrollo Web Frontend.
